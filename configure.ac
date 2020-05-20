@@ -357,6 +357,10 @@ AC_ARG_ENABLE([remote-bitbang],
   AS_HELP_STRING([--enable-remote-bitbang], [Enable building support for the Remote Bitbang jtag driver]),
   [build_remote_bitbang=$enableval], [build_remote_bitbang=no])
 
+AC_ARG_ENABLE([xvc],
+  AS_HELP_STRING([--enable-xvc], [Enable building support for the Xilinx Virtual Cable jtag driver]),
+  [build_xvc=$enableval], [build_xvc=no])
+
 AC_MSG_CHECKING([whether to enable dummy minidriver])
 AS_IF([test "x$build_minidriver_dummy" = "xyes"], [
   AS_IF([test "x$build_minidriver" = "xyes"], [
@@ -574,6 +578,13 @@ AS_IF([test "x$build_remote_bitbang" = "xyes"], [
   AC_DEFINE([BUILD_REMOTE_BITBANG], [0], [0 if you don't want the Remote Bitbang JTAG driver.])
 ])
 
+AS_IF([test "x$build_xvc" = "xyes"], [
+  build_xvc=yes
+  AC_DEFINE([BUILD_XVC], [1], [1 if you want the Xilinx Virtual Cable JTAG driver.])
+], [
+  AC_DEFINE([BUILD_XVC], [0], [0 if you don't want the Xilinx Virtual Cable JTAG driver.])
+])
+
 AS_IF([test "x$build_sysfsgpio" = "xyes"], [
   build_bitbang=yes
   AC_DEFINE([BUILD_SYSFSGPIO], [1], [1 if you want the SysfsGPIO driver.])
@@ -698,6 +709,7 @@ AM_CONDITIONAL([AMTJTAGACCEL], [test "x$build_amtjtagaccel" = "xyes"])
 AM_CONDITIONAL([GW16012], [test "x$build_gw16012" = "xyes"])
 AM_CONDITIONAL([OOCD_TRACE], [test "x$build_oocd_trace" = "xyes"])
 AM_CONDITIONAL([REMOTE_BITBANG], [test "x$build_remote_bitbang" = "xyes"])
+AM_CONDITIONAL([XVC], [test "x$build_xvc" = "xyes"])
 AM_CONDITIONAL([BUSPIRATE], [test "x$build_buspirate" = "xyes"])
 AM_CONDITIONAL([SYSFSGPIO], [test "x$build_sysfsgpio" = "xyes"])
 AM_CONDITIONAL([USE_LIBUSB0], [test "x$use_libusb0" = "xyes"])

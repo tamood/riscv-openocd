@@ -132,6 +132,9 @@ endif
 if REMOTE_BITBANG
 DRIVERFILES += %D%/remote_bitbang.c
 endif
+if XVC
+DRIVERFILES += %D%/xvc.c
+endif
 if HLADAPTER
 DRIVERFILES += %D%/stlink_usb.c
 DRIVERFILES += %D%/ti_icdi_usb.c
